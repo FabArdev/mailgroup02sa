@@ -60,11 +60,10 @@ public class PagoControlador {
                 // ── Ambos ────────────────────────────────────────────────────────
                 case "PAGARCUOTA":
                 case "REGISTRARPAGO":
-                    if (params.size() < 3) return PPagos.generarHtml(cmd, "Error: se requieren 3 parámetros [creditoId,numeroCuota,montoCuota].");
+                    if (params.size() < 2) return PPagos.generarHtml(cmd, "Error: se requieren 2 parámetros [creditoId,numeroCuota].");
                     rawResult = service.registrarPago(
                         Integer.parseInt(params.get(0).trim()),
-                        Integer.parseInt(params.get(1).trim()),
-                        Double.parseDouble(params.get(2).trim()));
+                        Integer.parseInt(params.get(1).trim()));
                     break;
 
                 default:

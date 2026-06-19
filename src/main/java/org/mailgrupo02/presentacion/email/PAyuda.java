@@ -5,13 +5,15 @@ public class PAyuda {
     public static String generarHtml() {
         StringBuilder c = new StringBuilder();
 
-        c.append("<h2 class=\"card-title\">RAO MOTOS &mdash; Sistema de Ventas por Correo</h2>");
-        c.append("<p style=\"color:#4a5568;font-size:17px;margin-bottom:6px;\">")
+        c.append(PlantillaBase.titulo("RAO MOTOS &mdash; Sistema de Ventas por Correo"));
+        c.append("<p style=\"color:#4a5568;font-size:15px;margin-bottom:10px;\">")
          .append("Escribe el comando en el <strong>Asunto</strong> del correo a ")
          .append("<strong>grupo02sa@tecnoweb.org.bo</strong>. El cuerpo puede ir vac&iacute;o.</p>");
-        c.append("<div class=\"tip\">")
+        c.append("<div style=\"background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:14px 18px;" +
+                 "font-size:14px;color:#1d4ed8;margin-bottom:20px;line-height:1.65;\">")
          .append("<strong>&#9432; C&oacute;mo usar:</strong> Escribe el comando con sus par&aacute;metros entre ")
-         .append("<code>[ ]</code> separados por comas. <strong>id</strong> siempre es un n&uacute;mero entero. ")
+         .append("<code style=\"font-family:'Courier New',monospace;background:#dbeafe;color:#1d4ed8;padding:1px 5px;border-radius:3px;\">[ ]</code>")
+         .append(" separados por comas. <strong>id</strong> siempre es un n&uacute;mero entero. ")
          .append("Los valores de tipo enumerado deben ir en MAY&Uacute;SCULAS.")
          .append("</div>");
 
@@ -60,10 +62,10 @@ public class PAyuda {
              "Muestra las cuotas de uno de tus cr&eacute;ditos (pagadas y pendientes).<br>"
              + "<em>creditoId</em> &rarr; n&uacute;mero del cr&eacute;dito.",
              "MISCUOTAS[2]"},
-            {"PAGARCUOTA[creditoId,numeroCuota,montoCuota]",
-             "Genera el c&oacute;digo QR de PagoF&aacute;cil para pagar una cuota.<br>"
-             + "<em>numeroCuota</em> &rarr; entero &nbsp;|&nbsp; <em>montoCuota</em> &rarr; decimal Bs.",
-             "PAGARCUOTA[2,1,708.33]"},
+            {"PAGARCUOTA[creditoId,numeroCuota]",
+             "Genera el c&oacute;digo QR de PagoF&aacute;cil para pagar una cuota completa.<br>"
+             + "El monto se toma autom&aacute;ticamente del cr&eacute;dito.",
+             "PAGARCUOTA[2,1]"},
         }));
 
         // ── PROVEEDOR ────────────────────────────────────────────────────────
@@ -214,31 +216,54 @@ public class PAyuda {
 
     public static String generarError(String mensaje) {
         String contenido =
-            "<h2 class=\"card-title\">Acceso denegado o comando no reconocido</h2>" +
-            "<div class=\"alert alert-error\">" +
-            "<strong>NO SE PUDO PROCESAR EL COMANDO</strong><br>" +
-            mensaje.replace("\n", "<br>") +
-            "</div>" +
-            "<p style=\"margin-top:14px;font-size:17px;color:#4a5568;\">Env&iacute;e <code>HELP</code> en el asunto para ver la lista completa de comandos disponibles para tu rol.</p>";
+            PlantillaBase.titulo("Acceso denegado o comando no reconocido") +
+            PlantillaBase.errCard("NO SE PUDO PROCESAR EL COMANDO<br>" + mensaje.replace("\n", "<br>")) +
+            "<p style=\"margin-top:14px;font-size:14px;color:#4a5568;\">Env&iacute;e <code style=\"font-family:'Courier New',monospace;background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:3px;\">HELP</code> en el asunto para ver la lista completa de comandos disponibles.</p>";
         return PlantillaBase.envolver("Sistema de Ventas por Correo &bull; Grupo 02 SA", contenido);
     }
 
     private static String seccion(String titulo, String[][] comandos) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div class=\"section\">")
-          .append("<span class=\"section-title\">").append(titulo).append("</span>")
-          .append("<table>")
-          .append("<tr>")
-          .append("<th style=\"width:34%\">Asunto del correo</th>")
-          .append("<th style=\"width:36%\">Descripci&oacute;n y par&aacute;metros</th>")
-          .append("<th style=\"width:30%\">Ejemplo copiable</th>")
-          .append("</tr>");
+        // Título de sección
+        sb.append("<div style=\"margin-bottom:20px;\">");
+        sb.append("<div style=\"font-size:13px;font-weight:800;color:#fff;background:#c0392b;" +
+                  "padding:9px 14px;border-radius:8px 8px 0 0;margin:0;\">")
+          .append(titulo).append("</div>");
+        // Tabla con bordes
+        sb.append("<table style=\"width:100%;border-collapse:collapse;font-size:13px;" +
+                  "border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px;overflow:hidden;\">");
+        // Cabecera
+        sb.append("<tr>");
+        sb.append("<th style=\"background:#4a5568;color:#fff;padding:8px 12px;text-align:left;" +
+                  "font-size:12px;font-weight:700;text-transform:uppercase;width:34%;\">Asunto del correo</th>");
+        sb.append("<th style=\"background:#4a5568;color:#fff;padding:8px 12px;text-align:left;" +
+                  "font-size:12px;font-weight:700;text-transform:uppercase;width:36%;\">Descripci&oacute;n</th>");
+        sb.append("<th style=\"background:#4a5568;color:#fff;padding:8px 12px;text-align:left;" +
+                  "font-size:12px;font-weight:700;text-transform:uppercase;width:30%;\">Ejemplo</th>");
+        sb.append("</tr>");
+        // Filas de comandos
+        boolean par = false;
         for (String[] cmd : comandos) {
-            sb.append("<tr>")
-              .append("<td><code class=\"cmd\">").append(cmd[0]).append("</code></td>")
-              .append("<td style=\"font-size:15px;line-height:1.7;color:#374151;\">").append(cmd[1]).append("</td>")
-              .append("<td><code class=\"ejemplo\">").append(cmd[2]).append("</code></td>")
-              .append("</tr>");
+            String bg = par ? "#f9fafb" : "#ffffff";
+            sb.append("<tr style=\"background:").append(bg).append(";\">");
+            // Columna: comando
+            sb.append("<td style=\"padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;\">")
+              .append("<code style=\"font-family:'Courier New',monospace;font-size:11px;background:#eff6ff;" +
+                      "color:#1d4ed8;padding:3px 6px;border-radius:4px;word-break:break-all;" +
+                      "display:inline-block;line-height:1.6;\">")
+              .append(cmd[0]).append("</code></td>");
+            // Columna: descripción
+            sb.append("<td style=\"padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;" +
+                      "font-size:12px;line-height:1.65;color:#374151;\">")
+              .append(cmd[1]).append("</td>");
+            // Columna: ejemplo
+            sb.append("<td style=\"padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;\">")
+              .append("<code style=\"font-family:'Courier New',monospace;font-size:11px;background:#f0fdf4;" +
+                      "color:#166534;padding:3px 6px;border-radius:4px;word-break:break-all;" +
+                      "display:inline-block;line-height:1.6;\">")
+              .append(cmd[2]).append("</code></td>");
+            sb.append("</tr>");
+            par = !par;
         }
         sb.append("</table></div>");
         return sb.toString();

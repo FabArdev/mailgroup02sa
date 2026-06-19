@@ -1,41 +1,23 @@
 package org.mailgrupo02.presentacion.email;
 
-import java.util.regex.*;
-
 public class PCompras {
 
     public static String generarHtml(String comando, String resultado) {
         StringBuilder body = new StringBuilder();
-        body.append("<h2 class=\"card-title\">").append(describir(comando)).append("</h2>");
+        body.append(PlantillaBase.titulo(describir(comando)));
 
         boolean esError = resultado.trim().toLowerCase().startsWith("error");
 
         if (resultado.contains("---") || resultado.contains("===")) {
-            body.append("<div class=\"lista-hdr\">&#128666; Resultados</div>")
-                .append("<div class=\"lista-wrap\"><pre class=\"table-pre\">")
-                .append(escapar(resultado))
-                .append("</pre></div>");
+            body.append(PlantillaBase.tablaHtml("&#128666;", resultado));
         } else if (esError) {
-            body.append("<div class=\"err-card\">")
-                .append("<span class=\"err-icon\">&#10007;</span>")
-                .append("<span class=\"err-tit\">ERROR EN LA OPERACI&Oacute;N</span>")
-                .append("<span class=\"err-msg\">")
-                .append(resultado.replace("\r\n", "<br>").replace("\n", "<br>"))
-                .append("</span></div>");
+            body.append(PlantillaBase.errCard(resultado));
         } else {
-            String idStr = extraerIdTexto(resultado);
+            String idStr = PlantillaBase.extraerId(resultado);
             String limpio = idStr != null
                 ? resultado.replaceAll("\\s*\\(ID:\\s*\\d+\\)", "").trim()
                 : resultado;
-            body.append("<div class=\"ok-card\">")
-                .append("<span class=\"ok-icon\">&#10003;</span>")
-                .append("<span class=\"ok-tit\">OPERACI&Oacute;N EXITOSA</span>")
-                .append("<span class=\"ok-msg\">")
-                .append(limpio.replace("\r\n", "<br>").replace("\n", "<br>"))
-                .append("</span>");
-            if (idStr != null)
-                body.append("<span class=\"id-badge\">ID: ").append(idStr).append("</span>");
-            body.append("</div>");
+            body.append(PlantillaBase.okCard(limpio, idStr));
         }
 
         return PlantillaBase.envolver("Gesti&oacute;n de Compras", body.toString());
@@ -50,14 +32,5 @@ public class PCompras {
             case "GETCOMPRA":     return "Detalle de Compra";
             default:              return "Gestión de Compras";
         }
-    }
-
-    private static String escapar(String txt) {
-        return txt.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
-    }
-
-    private static String extraerIdTexto(String msg) {
-        Matcher m = Pattern.compile("\\(ID:\\s*(\\d+)\\)").matcher(msg);
-        return m.find() ? m.group(1) : null;
     }
 }

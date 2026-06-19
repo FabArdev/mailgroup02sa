@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PagoCuotaService {
 
-    public String registrarPago(int creditoId, int numeroCuota, double montoCuota) throws SQLException {
+    public String registrarPago(int creditoId, int numeroCuota) throws SQLException {
         PagoCuotaM cuota = new PagoCuotaM().obtenerPorCreditoYNumero(creditoId, numeroCuota);
         if (cuota == null) {
             return "Error: No se encontró la cuota " + numeroCuota + " del crédito " + creditoId;
@@ -41,7 +41,7 @@ public class PagoCuotaService {
 
         String companyTxId = "CUO-" + creditoId + "-" + numeroCuota;
         String descripcion = "Cuota " + numeroCuota + " de credito #" + creditoId;
-        double montoReal   = cuota.getMontoCuota() > 0 ? cuota.getMontoCuota() : montoCuota;
+        double montoReal   = cuota.getMontoCuota();
 
         String[] qrResult = PagoFacilService.generarQR(
             clienteNombre,

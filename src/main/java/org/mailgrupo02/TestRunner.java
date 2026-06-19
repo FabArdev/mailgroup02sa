@@ -199,8 +199,7 @@ public class TestRunner {
         enviar("LISTARCREDITOS[*]");
         if (creditoId > 0) {
             enviar("VERCUOTAS[" + creditoId + "]");
-            // Monto cuota = (3600 * 1.05) / 6 = 630
-            enviar("PAGARCUOTA[" + creditoId + ",1,630.00]");
+            enviar("PAGARCUOTA[" + creditoId + ",1]");
         } else {
             skip("PAGARCUOTA — creditoId no disponible");
         }
