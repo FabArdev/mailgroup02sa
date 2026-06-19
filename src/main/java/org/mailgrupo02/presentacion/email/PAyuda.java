@@ -5,7 +5,7 @@ public class PAyuda {
     public static String generarHtml() {
         StringBuilder contenido = new StringBuilder();
         contenido.append("<h2 class=\"card-title\">Comandos Disponibles &mdash; RAO MOTOS</h2>");
-        contenido.append("<p style=\"color:#6b7280;font-size:12px;margin-bottom:10px;\">")
+        contenido.append("<p style=\"color:#6b7280;font-size:14px;margin-bottom:10px;\">")
                  .append("Escribe el comando en el <strong>Asunto</strong> del correo a ")
                  .append("<strong>grupo02sa@tecnoweb.org.bo</strong>. El cuerpo del correo puede ir vacío.</p>");
         contenido.append("<div class=\"tip\">")
@@ -167,7 +167,7 @@ public class PAyuda {
                 "<strong>NO SE PUDO PROCESAR EL COMANDO</strong><br>" +
                 mensaje.replace("\n", "<br>") +
                 "</div>" +
-                "<p style=\"margin-top:12px;font-size:12px;color:#6b7280;\">Envíe <code>HELP</code> en el asunto para ver la lista completa de comandos.</p>";
+                "<p style=\"margin-top:12px;font-size:14px;color:#6b7280;\">Envíe <code>HELP</code> en el asunto para ver la lista completa de comandos.</p>";
         return construirPlantillaBase(contenido);
     }
 
@@ -184,7 +184,7 @@ public class PAyuda {
         for (String[] cmd : comandos) {
             sb.append("<tr>")
               .append("<td><code class=\"cmd\">").append(cmd[0]).append("</code></td>")
-              .append("<td style=\"font-size:11px;line-height:1.7;color:#374151;\">").append(cmd[1]).append("</td>")
+              .append("<td style=\"font-size:13px;line-height:1.7;color:#374151;\">").append(cmd[1]).append("</td>")
               .append("<td><code class=\"ejemplo\">").append(cmd[2]).append("</code></td>")
               .append("</tr>");
         }
@@ -200,21 +200,21 @@ public class PAyuda {
                ".header h1{margin:0;font-size:26px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}\n" +
                ".header p{margin:0;font-size:12px;letter-spacing:0.5px;opacity:0.75;}\n" +
                ".content{padding:26px 22px;}\n" +
-               ".card-title{font-size:17px;font-weight:700;margin-top:0;margin-bottom:8px;color:#b91c1c;border-bottom:2px solid #fee2e2;padding-bottom:8px;}\n" +
-               ".tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1e40af;margin-bottom:18px;line-height:1.65;}\n" +
+               ".card-title{font-size:19px;font-weight:700;margin-top:0;margin-bottom:8px;color:#b91c1c;border-bottom:2px solid #fee2e2;padding-bottom:8px;}\n" +
+               ".tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;font-size:14px;color:#1e40af;margin-bottom:18px;line-height:1.65;}\n" +
                ".section{margin-bottom:18px;}\n" +
-               ".section-title{font-size:12px;font-weight:700;color:#fff;background:#4b5563;padding:6px 14px;border-radius:6px;margin:0 0 6px 0;}\n" +
-               ".alert{padding:14px;border-radius:10px;margin-bottom:14px;font-size:13px;line-height:1.6;}\n" +
+               ".section-title{font-size:14px;font-weight:700;color:#fff;background:#4b5563;padding:7px 14px;border-radius:6px;margin:0 0 6px 0;}\n" +
+               ".alert{padding:14px;border-radius:10px;margin-bottom:14px;font-size:15px;line-height:1.6;}\n" +
                ".alert-error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;}\n" +
-               "table{width:100%;border-collapse:collapse;font-size:12px;}\n" +
-               "th{background:#374151;color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:0.4px;}\n" +
-               "td{padding:8px 10px;border-bottom:1px solid #f1f5f9;vertical-align:top;}\n" +
+               "table{width:100%;border-collapse:collapse;font-size:14px;}\n" +
+               "th{background:#374151;color:#fff;font-weight:600;text-align:left;padding:9px 12px;font-size:12px;text-transform:uppercase;letter-spacing:0.4px;}\n" +
+               "td{padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;}\n" +
                "tr:last-child td{border-bottom:none;}\n" +
                "tr:nth-child(even) td{background:#f9fafb;}\n" +
-               ".cmd{font-family:'Courier New',monospace;font-size:10px;background:#eff6ff;color:#1d4ed8;padding:2px 5px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
-               ".ejemplo{font-family:'Courier New',monospace;font-size:10px;background:#f0fdf4;color:#166534;padding:2px 5px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
-               "code{font-family:'Courier New',monospace;background:#f1f5f9;color:#374151;padding:1px 4px;border-radius:3px;font-size:11px;}\n" +
-               ".footer{background:#f8fafc;padding:16px;text-align:center;font-size:11px;color:#64748b;border-top:1px solid #e2e8f0;}\n" +
+               ".cmd{font-family:'Courier New',monospace;font-size:12px;background:#eff6ff;color:#1d4ed8;padding:3px 6px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
+               ".ejemplo{font-family:'Courier New',monospace;font-size:12px;background:#f0fdf4;color:#166534;padding:3px 6px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
+               "code{font-family:'Courier New',monospace;background:#f1f5f9;color:#374151;padding:1px 5px;border-radius:3px;font-size:13px;}\n" +
+               ".footer{background:#f8fafc;padding:16px;text-align:center;font-size:13px;color:#64748b;border-top:1px solid #e2e8f0;}\n" +
                "</style>\n</head>\n<body>\n" +
                "<div class=\"container\">\n" +
                "<div class=\"header\"><h1>RAO MOTOS</h1>" +
