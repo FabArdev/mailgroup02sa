@@ -8,7 +8,7 @@ public class PProductos {
 
         boolean esError = resultado.trim().toLowerCase().startsWith("error");
 
-        if (resultado.startsWith("<div class=\"detalle")) {
+        if (resultado.startsWith("<div style=\"border:1px solid #e2e8f0")) {
             body.append(resultado);
         } else if (resultado.contains("---") || resultado.contains("===")) {
             body.append(PlantillaBase.tablaHtml("&#128230;", resultado));

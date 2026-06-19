@@ -92,24 +92,31 @@ public class ProductoControlador {
         }
     }
 
-    // ─── Tarjetas HTML ───────────────────────────────────────────────────────
+    // ─── Tarjetas HTML (estilos 100% inline — compatibles con Gmail) ──────────
 
     private static String fichaProducto(ProductoN p, String tipo) {
-        StringBuilder sb = new StringBuilder("<div class=\"detalle\">");
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style=\"border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:8px;\">");
         switch (tipo) {
             case "create":
-                sb.append("<div class=\"badge-ok\">&#10003; Producto Registrado Exitosamente &mdash; ID: ")
-                  .append(p.getId()).append("</div>");
+                sb.append("<div style=\"display:block;background-color:#dcfce7;color:#166534;"
+                        + "padding:10px 16px;font-weight:700;font-size:14px;"
+                        + "border-bottom:1px solid #bbf7d0;\">")
+                  .append("&#10003; Producto Registrado Exitosamente &mdash; ID: ").append(p.getId()).append("</div>");
                 break;
             case "delete":
-                sb.append("<div class=\"badge-del\">&#128465; Producto Eliminado &mdash; ID: ")
-                  .append(p.getId()).append("</div>");
+                sb.append("<div style=\"display:block;background-color:#fee2e2;color:#991b1b;"
+                        + "padding:10px 16px;font-weight:700;font-size:14px;"
+                        + "border-bottom:1px solid #fca5a5;\">")
+                  .append("&#128465; Producto Eliminado &mdash; ID: ").append(p.getId()).append("</div>");
                 break;
             default:
-                sb.append("<div class=\"badge-ok\">&#128230; Datos del Producto &mdash; ID: ")
-                  .append(p.getId()).append("</div>");
+                sb.append("<div style=\"display:block;background-color:#dcfce7;color:#166534;"
+                        + "padding:10px 16px;font-weight:700;font-size:14px;"
+                        + "border-bottom:1px solid #bbf7d0;\">")
+                  .append("&#128230; Datos del Producto &mdash; ID: ").append(p.getId()).append("</div>");
         }
-        sb.append("<table class=\"dt\">");
+        sb.append("<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">");
         fila(sb, "ID",                  String.valueOf(p.getId()));
         fila(sb, "C&oacute;digo",       nvl(p.getCodigo()));
         fila(sb, "Nombre",              nvl(p.getNombre()));
@@ -124,11 +131,18 @@ public class ProductoControlador {
     }
 
     private static String diffProducto(ProductoN a, ProductoN d) {
-        StringBuilder sb = new StringBuilder("<div class=\"detalle\">");
-        sb.append("<div class=\"badge-edit\">&#9998; Producto Actualizado &mdash; ID: ")
-          .append(d.getId()).append("</div>");
-        sb.append("<table class=\"dif\">");
-        sb.append("<tr><th>Campo</th><th>&#8592; Antes</th><th>Despu&eacute;s &#8594;</th></tr>");
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style=\"border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:8px;\">");
+        sb.append("<div style=\"display:block;background-color:#fef9c3;color:#713f12;"
+                + "padding:10px 16px;font-weight:700;font-size:14px;"
+                + "border-bottom:1px solid #fef08a;\">")
+          .append("&#9998; Producto Actualizado &mdash; ID: ").append(d.getId()).append("</div>");
+        sb.append("<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">");
+        sb.append("<tr>")
+          .append("<th style=\"background-color:#4a5568;color:#fff;padding:8px 14px;font-weight:700;width:28%;\">Campo</th>")
+          .append("<th style=\"background-color:#fef2f2;color:#991b1b;padding:8px 14px;font-weight:700;width:36%;\">&#8592; Antes</th>")
+          .append("<th style=\"background-color:#f0fdf4;color:#166534;padding:8px 14px;font-weight:700;width:36%;\">Despu&eacute;s &#8594;</th>")
+          .append("</tr>");
         difFila(sb, "C&oacute;digo",       nvl(a.getCodigo()),    nvl(d.getCodigo()));
         difFila(sb, "Nombre",              nvl(a.getNombre()),    nvl(d.getNombre()));
         difFila(sb, "Marca",               nvl(a.getMarca()),     nvl(d.getMarca()));
@@ -145,14 +159,23 @@ public class ProductoControlador {
     }
 
     private static void fila(StringBuilder sb, String label, String val) {
-        sb.append("<tr><td class=\"fl\">").append(label)
-          .append("</td><td class=\"fv\">").append(val).append("</td></tr>");
+        sb.append("<tr>")
+          .append("<td style=\"padding:8px 14px;color:#6b7280;font-weight:600;width:35%;"
+                + "border-bottom:1px solid #f1f5f9;vertical-align:top;\">").append(label).append("</td>")
+          .append("<td style=\"padding:8px 14px;color:#111827;"
+                + "border-bottom:1px solid #f1f5f9;vertical-align:top;\">").append(val).append("</td>")
+          .append("</tr>");
     }
 
     private static void difFila(StringBuilder sb, String campo, String antes, String despues) {
-        sb.append("<tr><td class=\"fn\">").append(campo).append("</td>")
-          .append("<td class=\"bef\">").append(antes).append("</td>")
-          .append("<td class=\"aft\">").append(despues).append("</td></tr>");
+        sb.append("<tr>")
+          .append("<td style=\"padding:8px 14px;color:#6b7280;font-weight:600;"
+                + "border-bottom:1px solid #f1f5f9;vertical-align:top;\">").append(campo).append("</td>")
+          .append("<td style=\"padding:8px 14px;color:#991b1b;background-color:#fff5f5;"
+                + "border-bottom:1px solid #f1f5f9;vertical-align:top;\">").append(antes).append("</td>")
+          .append("<td style=\"padding:8px 14px;color:#166534;background-color:#f0fdf4;"
+                + "border-bottom:1px solid #f1f5f9;vertical-align:top;\">").append(despues).append("</td>")
+          .append("</tr>");
     }
 
     private static String nvl(String val) { return val != null ? val : "N/A"; }

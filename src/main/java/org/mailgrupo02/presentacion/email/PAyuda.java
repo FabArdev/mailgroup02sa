@@ -200,10 +200,10 @@ public class PAyuda {
             {"VERCUOTAS[creditoId]",
              "Muestra el plan de cuotas de un cr&eacute;dito (pagadas y pendientes).",
              "VERCUOTAS[1]", PROPIETARIO},
-            {"PAGARCUOTA[creditoId,numeroCuota,monto]",
+            {"PAGARCUOTA[creditoId,numeroCuota]",
              "Genera c&oacute;digo QR de PagoF&aacute;cil para pagar una cuota.<br>"
-             + "<em>monto</em> &rarr; importe a pagar en Bs.",
-             "PAGARCUOTA[1,1,500.00]", PROPIETARIO},
+             + "El monto se toma autom&aacute;ticamente del plan de cuotas.",
+             "PAGARCUOTA[1,1]", PROPIETARIO},
         }));
 
         // ── REPORTES ──────────────────────────────────────────────────────────

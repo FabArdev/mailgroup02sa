@@ -65,7 +65,7 @@ public class ComandoEmailNuevo {
                     "<strong>No est&aacute;s registrado</strong><br>" +
                     "El correo <strong>" + emailRemitente + "</strong> no tiene cuenta en el sistema.<br><br>" +
                     "Para registrarte env&iacute;a:<br>" +
-                    "<code>CREATEUSUARIO[TuNombre," + emailRemitente + ",TuContrase&ntilde;a,TuTel&eacute;fono,TuDirecci&oacute;n]</code>" +
+                    "<code>CREATEUSUARIO[TuNombre," + emailRemitente + ",TuContrase&ntilde;a,CLIENTE,TuTel&eacute;fono,TuDirecci&oacute;n]</code>" +
                     "</div>";
                 return PlantillaBase.envolver("Mi Perfil", cuerpo);
             }

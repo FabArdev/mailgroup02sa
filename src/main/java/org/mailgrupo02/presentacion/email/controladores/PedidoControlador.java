@@ -151,10 +151,10 @@ public class PedidoControlador {
     }
 
     static String msgNoRegistrado(String email) {
-        return "Tu correo <strong>" + email + "</strong> no está registrado en el sistema.<br><br>" +
-               "Para registrarte envía este comando en el asunto:<br>" +
-               "<code>CREATEUSUARIO[TuNombre," + email + ",TuContraseña,TuTeléfono,TuDirección]</code><br><br>" +
+        return "Tu correo <strong>" + email + "</strong> no est&aacute; registrado en el sistema.<br><br>" +
+               "Para registrarte env&iacute;a este comando en el asunto:<br>" +
+               "<code>CREATEUSUARIO[TuNombre," + email + ",TuContrase&ntilde;a,CLIENTE,TuTel&eacute;fono,TuDirecci&oacute;n]</code><br><br>" +
                "Ejemplo:<br>" +
-               "<code>CREATEUSUARIO[Juan Perez," + email + ",clave123,70000000,Av. Principal 123]</code>";
+               "<code>CREATEUSUARIO[Juan Perez," + email + ",clave123,CLIENTE,70000000,Av. Principal 123]</code>";
     }
 }
