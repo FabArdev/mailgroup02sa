@@ -3,6 +3,7 @@
 -- Repuestos y accesorios para motocicletas
 -- Ejecutar LUEGO de database_schema.sql
 -- psql -h mail.tecnoweb.org.bo -U grupo02sa -d db_grupo02sa -f seed_data.sql
+-- (usa las credenciales del archivo .env o variables de entorno)
 -- =====================================================
 
 BEGIN;

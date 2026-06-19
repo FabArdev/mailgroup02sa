@@ -28,28 +28,11 @@ Sistema de gestión de ventas al crédito para **"RAO MOTOS"**, implementado med
 | Servicio      | Valor                     |
 | ------------- | ------------------------- |
 | Servidor      | mail.tecnoweb.org.bo      |
-| Usuario       | grupo02sa                 |
-| Contraseña    | grup002grup002\*          |
-| Correo        | grupo02sa@tecnoweb.org.bo |
-| Base de Datos | db_grupo02sa              |
 | Puerto SMTP   | 25                        |
 | Puerto POP3   | 110                       |
+| Base de Datos | db_grupo02sa              |
 
-**Configuración en código** (`src/main/java/Database/ConfigEmailServer.java`):
-
-```java
-package Database;
-
-public class ConfigEmailServer {
-    public static String PORT_SMTP = "25";
-    public static String PROTOCOL = "smtp";
-    public static String HOST = "mail.tecnoweb.org.bo";
-    public static String USER = "grupo02sa";
-    public static String PASSWORD = "grup002grup002*";
-    public static String MAIL = "grupo02sa@tecnoweb.org.bo";
-    public static String MAIL_PASSWORD = "grup002grup002*";
-}
-```
+Las credenciales se cargan desde el archivo `.env` en la raíz del proyecto (ver [Credenciales y .env](#credenciales-y-env)).
 
 ---
 
@@ -67,9 +50,11 @@ public class ConfigEmailServer {
 
 ```
 ProyectoMailGrupo02sa/
+├── .env                                      # Credenciales (no versionado)
 ├── src/main/java/
 │   ├── Database/
-│   │   └── ConfigEmailServer.java           # Configuración SMTP/POP3
+│   │   ├── ConfigEmailServer.java           # Configuración SMTP/POP3
+│   │   └── EnvLoader.java                   # Carga variables desde .env
 │   ├── org/mailgrupo02/
 │   │   ├── Main.java                        # Runner principal (menú interactivo)
 │   │   ├── CrearTablas.java                 # Utilitario para crear tablas desde Java
@@ -382,13 +367,7 @@ mvn clean compile exec:java -Dexec.mainClass="org.mailgrupo02.CrearTablas"
 
 `CrearTablas.java` se conecta a PostgreSQL, lee `database_schema.sql`, ignora comentarios y líneas vacías, divide el script por `;` y ejecuta cada sentencia individualmente.
 
-También puedes ejecutarlo desde pgAdmin/DBeaver/psql:
-
-```bash
-psql -h mail.tecnoweb.org.bo -p 5432 -U grupo02sa -d db_grupo02sa
-# Contraseña: grup002grup002*
-\i database_schema.sql
-```
+También puedes ejecutarlo desde pgAdmin/DBeaver/psql (usa las credenciales de `.env`).
 
 ### PASO 2: Compilar
 
@@ -584,11 +563,39 @@ Si el email no existe en `usuario`, el sistema puede:
 
 ---
 
+## Credenciales y .env
+
+Las credenciales se almacenan en un archivo `.env` en la raíz del proyecto:
+
+```
+SMTP_PORT=25
+SMTP_HOST=mail.tecnoweb.org.bo
+EMAIL_USER=grupo02sa
+EMAIL_PASSWORD=********
+EMAIL_ADDRESS=grupo02sa@tecnoweb.org.bo
+
+DB_URL=jdbc:postgresql://mail.tecnoweb.org.bo:5432/db_grupo02sa
+DB_USER=grupo02sa
+DB_PASSWORD=********
+
+# PagoFacil QR (pagos electrónicos)
+PAGOFACIL_TOKEN_SERVICE=
+PAGOFACIL_TOKEN_SECRET=
+PAGOFACIL_TEST_MODE=true
+```
+
+El `.env` **no se versiona** (está en `.gitignore`). Cada integrante debe crear su propio `.env` basado en el template de arriba.
+
+### ¿Cómo se cargan?
+
+- `EnvLoader.java` lee `.env` desde el directorio de trabajo (raíz del proyecto)
+- Si no encuentra el archivo, fallback a `System.getenv()`
+- `ConfigEmailServer.java` y `Conexion.java` obtienen sus valores desde `EnvLoader.get("KEY")`
+
 ## Notas de Seguridad
 
 Este proyecto es **académico/demostrativo**. NO usar en producción sin:
 
-- Variables de entorno para credenciales
 - Autenticación y rate limiting
 - Cifrado TLS
 - Logging robusto

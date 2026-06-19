@@ -1,5 +1,6 @@
 package org.mailgrupo02.sistema.conexion;
 
+import Database.EnvLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,9 +8,9 @@ import java.sql.SQLException;
 public class Conexion {
     private static Conexion instancia;
     private Connection connection;
-    private String url = "jdbc:postgresql://mail.tecnoweb.org.bo:5432/db_grupo02sa";
-    private String usuario = "grupo02sa";
-    private String contraseña = "grup002grup002*";
+    private String url = EnvLoader.get("DB_URL");
+    private String usuario = EnvLoader.get("DB_USER");
+    private String contraseña = EnvLoader.get("DB_PASSWORD");
 
     private Conexion() throws SQLException {
         try {

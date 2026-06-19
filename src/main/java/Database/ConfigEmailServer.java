@@ -2,14 +2,14 @@ package Database;
 
 /**
  * Configuración del servidor de correo electrónico
- * Credenciales para Grupo02sa - Sistema de Ventas al Crédito
+ * Las credenciales se cargan desde .env (o variables de entorno)
  */
 public class ConfigEmailServer {
-    public static String PORT_SMTP = "25";
+    public static String PORT_SMTP = EnvLoader.get("SMTP_PORT");
     public static String PROTOCOL = "smtp";
-    public static String HOST = "mail.tecnoweb.org.bo";
-    public static String USER = "grupo02sa";
-    public static String PASSWORD = "grup002grup002*";
-    public static String MAIL = "grupo02sa@tecnoweb.org.bo";
-    public static String MAIL_PASSWORD = "grup002grup002*";
+    public static String HOST = EnvLoader.get("SMTP_HOST");
+    public static String USER = EnvLoader.get("EMAIL_USER");
+    public static String PASSWORD = EnvLoader.get("EMAIL_PASSWORD");
+    public static String MAIL = EnvLoader.get("EMAIL_ADDRESS");
+    public static String MAIL_PASSWORD = EnvLoader.get("EMAIL_PASSWORD");
 }
