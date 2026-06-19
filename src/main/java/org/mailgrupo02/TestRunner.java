@@ -133,6 +133,14 @@ public class TestRunner {
             compraId = extractId(rCompra);
             note("compraId extraído = " + compraId);
             if (compraId > 0) enviar("GETCOMPRA[" + compraId + "]");
+
+            // Segunda compra para probar ANULARCOMPRA
+            String rCompra2 = enviar("CREARCOMPRA[" + proveedorId + ",500.00]");
+            int compra2Id = extractId(rCompra2);
+            note("compra2Id extraído = " + compra2Id);
+            if (compra2Id > 0) enviar("ANULARCOMPRA[" + compra2Id + "]");
+
+            enviar("LISTARCOMPRAS[*]");
         } else {
             skip("COMPRAS — proveedorId no disponible");
         }
@@ -146,10 +154,17 @@ public class TestRunner {
             pedidoId = extractId(rPed);
             note("pedidoId extraído = " + pedidoId);
             if (pedidoId > 0) {
-                enviar("GETPEDIDO["      + pedidoId + "]");
+                enviar("GETPEDIDO["       + pedidoId + "]");
                 enviar("DESPACHARPEDIDO[" + pedidoId + "]");
-                enviar("LISTARPEDIDOS[*]");
             }
+
+            // Segundo pedido para probar ANULARPEDIDO
+            String rPed2 = enviar("CREARPEDIDO[" + clienteId + "]");
+            int pedido2Id = extractId(rPed2);
+            note("pedido2Id extraído = " + pedido2Id);
+            if (pedido2Id > 0) enviar("ANULARPEDIDO[" + pedido2Id + "]");
+
+            enviar("LISTARPEDIDOS[*]");
         } else {
             skip("PEDIDOS — clienteId no disponible");
         }
@@ -203,9 +218,11 @@ public class TestRunner {
         // BLOQUE 10 — Actualizar
         // ════════════════════════════════════════════════════════════════════
         grupo("ACTUALIZACIÓN");
-        if (clienteId > 0)
+        if (clienteId > 0) {
             enviar("UPDATEUSUARIO[" + clienteId
                 + ",Test Cliente Upd,testcli@runner.com,pass123,CLIENTE,79001001,Av. Actualizada 100,true]");
+            enviar("UPDATECLIENTE[" + clienteId + ",9876543210,FRECUENTE]");
+        }
         if (productoId > 0)
             enviar("UPDATEPRODUCTO[" + productoId
                 + ",TST-001,Moto Test v2,HondaTest,CB150T,Producto actualizado,5299.00,true]");
