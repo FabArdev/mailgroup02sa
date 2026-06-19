@@ -4,75 +4,159 @@ public class PAyuda {
 
     public static String generarHtml() {
         StringBuilder contenido = new StringBuilder();
-        contenido.append("<h2 class=\"card-title\">Comandos Disponibles - RAO MOTOS</h2>");
-        contenido.append("<p style=\"color:#6b7280;font-size:13px;margin-bottom:20px;\">")
-                 .append("Envíe el comando en el <strong>Asunto</strong> del correo a <em>grupo02sa@tecnoweb.org.bo</em></p>");
+        contenido.append("<h2 class=\"card-title\">Comandos Disponibles &mdash; RAO MOTOS</h2>");
+        contenido.append("<p style=\"color:#6b7280;font-size:12px;margin-bottom:10px;\">")
+                 .append("Escribe el comando en el <strong>Asunto</strong> del correo a ")
+                 .append("<strong>grupo02sa@tecnoweb.org.bo</strong>. El cuerpo del correo puede ir vacío.</p>");
+        contenido.append("<div class=\"tip\">")
+                 .append("<strong>&#9432; Cómo usar:</strong> Escribe el comando con sus parámetros entre <code>[ ]</code> separados por comas. ")
+                 .append("<strong>id</strong> siempre es un número entero del registro en la base de datos. ")
+                 .append("Los valores escritos deben respetar exactamente las opciones indicadas (mayúsculas).")
+                 .append("</div>");
 
-        contenido.append(seccion("Usuarios (CU1)",
-            new String[][]{
-                {"LISTARUSUARIOS[*]","Listar todos los usuarios"},
-                {"GETUSUARIO[id]","Ver detalle de un usuario"},
-                {"CREATEUSUARIO[nombre,email,password,rol,telefono,direccion]","Crear usuario (rol: PROPIETARIO/PROVEEDOR/CLIENTE)"},
-                {"UPDATEUSUARIO[id,nombre,email,password,rol,telefono,direccion,activo]","Actualizar usuario"},
-                {"DELETEUSUARIO[id]","Eliminar usuario"}
-            }));
+        contenido.append(seccion("&#128101; Usuarios", new String[][]{
+            {"LISTARUSUARIOS[*]",
+             "Lista todos los usuarios registrados.",
+             "LISTARUSUARIOS[*]"},
+            {"GETUSUARIO[id]",
+             "<em>id</em> &rarr; número (ej. 1, 2, 3…)",
+             "GETUSUARIO[1]"},
+            {"CREATEUSUARIO[nombre,email,password,rol,telefono,direccion]",
+             "<em>rol</em> &rarr; escrito: <code>PROPIETARIO</code> / <code>PROVEEDOR</code> / <code>CLIENTE</code><br>"
+             + "<em>telefono</em> &rarr; texto &nbsp;|&nbsp; <em>direccion</em> &rarr; texto",
+             "CREATEUSUARIO[Juan Rao,juan@mail.com,clave123,CLIENTE,70123456,Av. Banzer 100]"},
+            {"UPDATEUSUARIO[id,nombre,email,password,rol,telefono,direccion,activo]",
+             "<em>id</em> &rarr; número &nbsp;|&nbsp; <em>activo</em> &rarr; <code>true</code> / <code>false</code>",
+             "UPDATEUSUARIO[1,Juan Rao,juan@mail.com,clave123,CLIENTE,70123456,Av. Banzer 100,true]"},
+            {"DELETEUSUARIO[id]",
+             "<em>id</em> &rarr; número",
+             "DELETEUSUARIO[1]"},
+        }));
 
-        contenido.append(seccion("Productos (CU2)",
-            new String[][]{
-                {"LISTARPRODUCTOS[*]","Listar todos los productos"},
-                {"GETPRODUCTO[id]","Ver detalle de un producto"},
-                {"CREATEPRODUCTO[codigo,nombre,marca,modelo,descripcion,precioVentaBase]","Crear producto"},
-                {"UPDATEPRODUCTO[id,codigo,nombre,marca,modelo,descripcion,precio,activo]","Actualizar producto"},
-                {"DELETEPRODUCTO[id]","Eliminar producto"}
-            }));
+        contenido.append(seccion("&#128230; Productos", new String[][]{
+            {"LISTARPRODUCTOS[*]",
+             "Lista todos los productos del catálogo.",
+             "LISTARPRODUCTOS[*]"},
+            {"GETPRODUCTO[id]",
+             "<em>id</em> &rarr; número",
+             "GETPRODUCTO[1]"},
+            {"CREATEPRODUCTO[codigo,nombre,marca,modelo,descripcion,precioVentaBase]",
+             "<em>codigo</em> &rarr; texto (ej. MOT-001)<br>"
+             + "<em>precioVentaBase</em> &rarr; número decimal en Bs. (ej. 8500.00)",
+             "CREATEPRODUCTO[MOT-001,Moto Sport 150,Honda,CB150,Moto deportiva,8500.00]"},
+            {"UPDATEPRODUCTO[id,codigo,nombre,marca,modelo,descripcion,precio,activo]",
+             "<em>id</em> &rarr; número &nbsp;|&nbsp; <em>precio</em> &rarr; decimal Bs.<br>"
+             + "<em>activo</em> &rarr; <code>true</code> / <code>false</code>",
+             "UPDATEPRODUCTO[1,MOT-001,Moto Sport 150,Honda,CB150,Moto deportiva,8500.00,true]"},
+            {"DELETEPRODUCTO[id]",
+             "<em>id</em> &rarr; número",
+             "DELETEPRODUCTO[1]"},
+        }));
 
-        contenido.append(seccion("Compras (CU3)",
-            new String[][]{
-                {"LISTARCOMPRAS[*]","Listar todas las compras"},
-                {"GETCOMPRA[id]","Ver detalle de una compra"},
-                {"CREARCOMPRA[proveedorId,total]","Crear compra (Ej: CREARCOMPRA[1,5000.00])"},
-                {"ANULARCOMPRA[id]","Anular una compra"}
-            }));
+        contenido.append(seccion("&#128666; Compras a Proveedores", new String[][]{
+            {"LISTARCOMPRAS[*]",
+             "Lista todas las compras registradas.",
+             "LISTARCOMPRAS[*]"},
+            {"GETCOMPRA[id]",
+             "<em>id</em> &rarr; número",
+             "GETCOMPRA[1]"},
+            {"CREARCOMPRA[proveedorId,total]",
+             "<em>proveedorId</em> &rarr; número (ID del proveedor en la BD)<br>"
+             + "<em>total</em> &rarr; número decimal en Bs.",
+             "CREARCOMPRA[2,15000.00]"},
+            {"ANULARCOMPRA[id]",
+             "<em>id</em> &rarr; número",
+             "ANULARCOMPRA[1]"},
+        }));
 
-        contenido.append(seccion("Pedidos (CU4)",
-            new String[][]{
-                {"LISTARPEDIDOS[*]","Listar todos los pedidos"},
-                {"GETPEDIDO[id]","Ver detalle de un pedido"},
-                {"CREARPEDIDO[clienteId]","Crear pedido (Ej: CREARPEDIDO[1])"},
-                {"DESPACHARPEDIDO[id]","Marcar pedido como despachado"},
-                {"ANULARPEDIDO[id]","Anular un pedido"}
-            }));
+        contenido.append(seccion("&#128221; Pedidos", new String[][]{
+            {"LISTARPEDIDOS[*]",
+             "Lista todos los pedidos.",
+             "LISTARPEDIDOS[*]"},
+            {"GETPEDIDO[id]",
+             "<em>id</em> &rarr; número",
+             "GETPEDIDO[1]"},
+            {"CREARPEDIDO[clienteId]",
+             "<em>clienteId</em> &rarr; número (ID del cliente en la BD)",
+             "CREARPEDIDO[3]"},
+            {"DESPACHARPEDIDO[id]",
+             "Cambia el estado del pedido a despachado.<br><em>id</em> &rarr; número",
+             "DESPACHARPEDIDO[1]"},
+            {"ANULARPEDIDO[id]",
+             "<em>id</em> &rarr; número",
+             "ANULARPEDIDO[1]"},
+        }));
 
-        contenido.append(seccion("Inventario (CU5)",
-            new String[][]{
-                {"VERINVENTARIO[*]","Ver stock de todos los productos"},
-                {"VERINVENTARIO[productoId]","Ver stock de un producto específico"},
-                {"REGISTRARINGRESO[productoId,cantidad,motivo]","Registrar entrada de stock"},
-                {"REGISTRAREGRESO[productoId,cantidad,motivo]","Registrar salida de stock"}
-            }));
+        contenido.append(seccion("&#128200; Inventario", new String[][]{
+            {"VERINVENTARIO[*]",
+             "Muestra el stock actual de todos los productos.",
+             "VERINVENTARIO[*]"},
+            {"VERINVENTARIO[productoId]",
+             "<em>productoId</em> &rarr; número (ID del producto en la BD)",
+             "VERINVENTARIO[1]"},
+            {"REGISTRARINGRESO[productoId,cantidad,motivo]",
+             "<em>productoId</em> &rarr; número &nbsp;|&nbsp; <em>cantidad</em> &rarr; número entero<br>"
+             + "<em>motivo</em> &rarr; texto libre",
+             "REGISTRARINGRESO[1,10,Compra nueva]"},
+            {"REGISTRAREGRESO[productoId,cantidad,motivo]",
+             "<em>productoId</em> &rarr; número &nbsp;|&nbsp; <em>cantidad</em> &rarr; número entero<br>"
+             + "<em>motivo</em> &rarr; texto libre",
+             "REGISTRAREGRESO[1,2,Venta directa]"},
+        }));
 
-        contenido.append(seccion("Ventas (CU6)",
-            new String[][]{
-                {"LISTARVENTAS[*]","Listar todas las ventas"},
-                {"GETVENTA[id]","Ver detalle de una venta"},
-                {"CREARVENTA_CONTADO[clienteId,fecha,montoTotal,metodoPago]","Venta al contado (fecha: 2026-06-05T10:00:00, método: EFECTIVO/QR/TARJETA)"},
-                {"CREARVENTA_CREDITO[clienteId,fecha,montoTotal,nroCuotas,tasaInteres,metodoPago]","Venta a crédito"},
-                {"DELETEVENTA[id]","Eliminar venta"}
-            }));
+        contenido.append(seccion("&#128176; Ventas", new String[][]{
+            {"LISTARVENTAS[*]",
+             "Lista todas las ventas registradas.",
+             "LISTARVENTAS[*]"},
+            {"GETVENTA[id]",
+             "Muestra detalle de la venta y cuotas si es a crédito.<br><em>id</em> &rarr; número",
+             "GETVENTA[1]"},
+            {"CREARVENTA_CONTADO[clienteId,fecha,montoTotal,metodoPago]",
+             "<em>clienteId</em> &rarr; número (ID del cliente)<br>"
+             + "<em>fecha</em> &rarr; formato: <code>YYYY-MM-DDThh:mm:ss</code><br>"
+             + "<em>montoTotal</em> &rarr; decimal Bs.<br>"
+             + "<em>metodoPago</em> &rarr; escrito: <code>EFECTIVO</code> / <code>QR</code> / <code>TARJETA</code>",
+             "CREARVENTA_CONTADO[3,2026-06-18T10:00:00,5000.00,EFECTIVO]"},
+            {"CREARVENTA_CREDITO[clienteId,fecha,montoTotal,nroCuotas,tasaInteres,metodoPago]",
+             "<em>clienteId</em> &rarr; número (ID del cliente)<br>"
+             + "<em>fecha</em> &rarr; formato: <code>YYYY-MM-DDThh:mm:ss</code><br>"
+             + "<em>nroCuotas</em> &rarr; número entero (ej. 6, 12, 24)<br>"
+             + "<em>tasaInteres</em> &rarr; decimal porcentaje (ej. <code>5.0</code>)<br>"
+             + "<em>metodoPago</em> &rarr; escrito: <code>EFECTIVO</code> / <code>QR</code> / <code>TARJETA</code>",
+             "CREARVENTA_CREDITO[3,2026-06-18T10:00:00,8500.00,12,5.0,QR]"},
+            {"DELETEVENTA[id]",
+             "<em>id</em> &rarr; número",
+             "DELETEVENTA[1]"},
+        }));
 
-        contenido.append(seccion("Pagos y Créditos (CU7)",
-            new String[][]{
-                {"LISTARCREDITOS[*]","Listar todos los créditos activos"},
-                {"VERCUOTAS[creditoId]","Ver cuotas de un crédito"},
-                {"PAGARCUOTA[creditoId,numeroCuota,montoCuota]","Pagar cuota (genera QR de PagoFácil)"}
-            }));
+        contenido.append(seccion("&#128184; Pagos y Créditos", new String[][]{
+            {"LISTARCREDITOS[*]",
+             "Lista todos los créditos activos con su saldo pendiente.",
+             "LISTARCREDITOS[*]"},
+            {"VERCUOTAS[creditoId]",
+             "Muestra todas las cuotas de un crédito (pagadas y pendientes).<br>"
+             + "<em>creditoId</em> &rarr; número (ID del crédito)",
+             "VERCUOTAS[1]"},
+            {"PAGARCUOTA[creditoId,numeroCuota,montoCuota]",
+             "<em>creditoId</em> &rarr; número &nbsp;|&nbsp; <em>numeroCuota</em> &rarr; número entero<br>"
+             + "<em>montoCuota</em> &rarr; decimal Bs. (monto exacto de la cuota)<br>"
+             + "Genera código QR de PagoFácil en la respuesta.",
+             "PAGARCUOTA[1,1,708.33]"},
+        }));
 
-        contenido.append(seccion("Reportes (CU8)",
-            new String[][]{
-                {"REPORT_VENTAS_POR_MES[YYYY-MM]","Reporte de ventas de un mes (Ej: REPORT_VENTAS_POR_MES[2026-06])"},
-                {"REPORT_VENTAS_POR_CLIENTE[clienteId]","Historial de ventas de un cliente"},
-                {"REPORT_MORAS_PENDIENTES[*]","Reporte de moras y cuotas vencidas"}
-            }));
+        contenido.append(seccion("&#128202; Reportes", new String[][]{
+            {"REPORT_VENTAS_POR_MES[YYYY-MM]",
+             "Reporte de ventas del mes con totales por tipo (contado/crédito).<br>"
+             + "<em>YYYY-MM</em> &rarr; año y mes (ej. <code>2026-06</code>)",
+             "REPORT_VENTAS_POR_MES[2026-06]"},
+            {"REPORT_VENTAS_POR_CLIENTE[clienteId]",
+             "Historial completo de ventas de un cliente.<br>"
+             + "<em>clienteId</em> &rarr; número (ID del cliente en la BD)",
+             "REPORT_VENTAS_POR_CLIENTE[3]"},
+            {"REPORT_MORAS_PENDIENTES[*]",
+             "Lista las cuotas vencidas con días de retraso y monto de mora acumulado.",
+             "REPORT_MORAS_PENDIENTES[*]"},
+        }));
 
         return construirPlantillaBase(contenido.toString());
     }
@@ -83,7 +167,7 @@ public class PAyuda {
                 "<strong>NO SE PUDO PROCESAR EL COMANDO</strong><br>" +
                 mensaje.replace("\n", "<br>") +
                 "</div>" +
-                "<p style=\"margin-top:15px;font-size:13px;color:#6b7280;\">Envíe <code>HELP</code> en el asunto para ver todos los comandos disponibles.</p>";
+                "<p style=\"margin-top:12px;font-size:12px;color:#6b7280;\">Envíe <code>HELP</code> en el asunto para ver la lista completa de comandos.</p>";
         return construirPlantillaBase(contenido);
     }
 
@@ -91,12 +175,17 @@ public class PAyuda {
         StringBuilder sb = new StringBuilder();
         sb.append("<div class=\"section\">")
           .append("<h3 class=\"section-title\">").append(titulo).append("</h3>")
-          .append("<table>");
-        sb.append("<tr><th>Comando</th><th>Descripción</th></tr>");
+          .append("<table>")
+          .append("<tr>")
+          .append("<th style=\"width:33%\">Asunto del correo</th>")
+          .append("<th style=\"width:37%\">Descripci&oacute;n y par&aacute;metros</th>")
+          .append("<th style=\"width:30%\">Ejemplo copiable</th>")
+          .append("</tr>");
         for (String[] cmd : comandos) {
             sb.append("<tr>")
               .append("<td><code class=\"cmd\">").append(cmd[0]).append("</code></td>")
-              .append("<td>").append(cmd[1]).append("</td>")
+              .append("<td style=\"font-size:11px;line-height:1.7;color:#374151;\">").append(cmd[1]).append("</td>")
+              .append("<td><code class=\"ejemplo\">").append(cmd[2]).append("</code></td>")
               .append("</tr>");
         }
         sb.append("</table></div>");
@@ -106,29 +195,33 @@ public class PAyuda {
     private static String construirPlantillaBase(String contenido) {
         return "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n<style>\n" +
                "body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f1f5f9;color:#1e293b;margin:0;padding:0;}\n" +
-               ".container{max-width:680px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.10);border:1px solid #e2e8f0;}\n" +
+               ".container{max-width:720px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.10);border:1px solid #e2e8f0;}\n" +
                ".header{background:linear-gradient(135deg,#b91c1c,#7f1d1d);padding:30px 20px;text-align:center;color:#fff;}\n" +
-               ".header h1{margin:0;font-size:22px;font-weight:700;letter-spacing:1px;}\n" +
-               ".header p{margin:6px 0 0;font-size:13px;opacity:0.85;}\n" +
-               ".content{padding:30px 28px;}\n" +
-               ".card-title{font-size:18px;font-weight:600;margin-top:0;margin-bottom:16px;color:#b91c1c;border-bottom:2px solid #fee2e2;padding-bottom:8px;}\n" +
-               ".section{margin-bottom:24px;}\n" +
-               ".section-title{font-size:14px;font-weight:700;color:#fff;background:#4b5563;padding:8px 14px;border-radius:6px;margin:0 0 10px 0;}\n" +
-               ".alert{padding:16px;border-radius:12px;margin-bottom:20px;font-size:14px;line-height:1.6;}\n" +
+               ".header h1{margin:0;font-size:26px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}\n" +
+               ".header p{margin:0;font-size:12px;letter-spacing:0.5px;opacity:0.75;}\n" +
+               ".content{padding:26px 22px;}\n" +
+               ".card-title{font-size:17px;font-weight:700;margin-top:0;margin-bottom:8px;color:#b91c1c;border-bottom:2px solid #fee2e2;padding-bottom:8px;}\n" +
+               ".tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1e40af;margin-bottom:18px;line-height:1.65;}\n" +
+               ".section{margin-bottom:18px;}\n" +
+               ".section-title{font-size:12px;font-weight:700;color:#fff;background:#4b5563;padding:6px 14px;border-radius:6px;margin:0 0 6px 0;}\n" +
+               ".alert{padding:14px;border-radius:10px;margin-bottom:14px;font-size:13px;line-height:1.6;}\n" +
                ".alert-error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;}\n" +
-               "table{width:100%;border-collapse:collapse;margin-top:0;font-size:13px;}\n" +
-               "th{background:#374151;color:#fff;font-weight:600;text-align:left;padding:10px 14px;}\n" +
-               "td{padding:9px 14px;border-bottom:1px solid #f1f5f9;color:#374151;}\n" +
+               "table{width:100%;border-collapse:collapse;font-size:12px;}\n" +
+               "th{background:#374151;color:#fff;font-weight:600;text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:0.4px;}\n" +
+               "td{padding:8px 10px;border-bottom:1px solid #f1f5f9;vertical-align:top;}\n" +
                "tr:last-child td{border-bottom:none;}\n" +
-               "tr:nth-child(even){background:#f8fafc;}\n" +
-               ".cmd{font-family:'Courier New',monospace;font-size:11px;background:#f1f5f9;color:#1d4ed8;padding:2px 6px;border-radius:4px;white-space:nowrap;}\n" +
-               "code{font-family:'Courier New',monospace;background:#f1f5f9;padding:2px 5px;border-radius:3px;}\n" +
-               ".footer{background:#f8fafc;padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0;}\n" +
+               "tr:nth-child(even) td{background:#f9fafb;}\n" +
+               ".cmd{font-family:'Courier New',monospace;font-size:10px;background:#eff6ff;color:#1d4ed8;padding:2px 5px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
+               ".ejemplo{font-family:'Courier New',monospace;font-size:10px;background:#f0fdf4;color:#166534;padding:2px 5px;border-radius:3px;word-break:break-all;display:inline-block;}\n" +
+               "code{font-family:'Courier New',monospace;background:#f1f5f9;color:#374151;padding:1px 4px;border-radius:3px;font-size:11px;}\n" +
+               ".footer{background:#f8fafc;padding:16px;text-align:center;font-size:11px;color:#64748b;border-top:1px solid #e2e8f0;}\n" +
                "</style>\n</head>\n<body>\n" +
                "<div class=\"container\">\n" +
-               "<div class=\"header\"><h1>RAO MOTOS</h1><p>Sistema de Ventas por Correo Electrónico</p></div>\n" +
+               "<div class=\"header\"><h1>RAO MOTOS</h1>" +
+               "<div style=\"width:40px;height:2px;background:rgba(255,255,255,0.30);margin:10px auto 8px;border-radius:1px;\"></div>" +
+               "<p>Sistema de Ventas por Correo &bull; Grupo 02 SA</p></div>\n" +
                "<div class=\"content\">" + contenido + "</div>\n" +
-               "<div class=\"footer\"><strong>Grupo 02 &mdash; Tecnología Web (UAGRM)</strong><br>Correo automático &mdash; no responder directamente.</div>\n" +
+               "<div class=\"footer\"><strong>Grupo 02 SA &mdash; Tecnolog&iacute;a Web (UAGRM)</strong><br>Correo autom&aacute;tico &mdash; no responder directamente.</div>\n" +
                "</div>\n</body>\n</html>";
     }
 }

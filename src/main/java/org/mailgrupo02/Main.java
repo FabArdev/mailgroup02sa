@@ -143,7 +143,7 @@ public class Main {
         }
 
         private String extraer(String txt, String key, int offset) {
-            int i = txt.indexOf(key);
+            int i = txt.toLowerCase().indexOf(key.toLowerCase());
             if (i != -1) {
                 int fin = txt.indexOf("\n", i + offset);
                 if (fin != -1) {

@@ -48,8 +48,8 @@ public class PUsuarios {
                "body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f1f5f9;color:#1e293b;margin:0;padding:0;}\n" +
                ".container{max-width:680px;margin:30px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.10);border:1px solid #e2e8f0;}\n" +
                ".header{background:linear-gradient(135deg," + COLOR1 + "," + COLOR2 + ");padding:30px 20px;text-align:center;color:#fff;}\n" +
-               ".header h1{margin:0;font-size:22px;font-weight:700;letter-spacing:1px;}\n" +
-               ".header p{margin:6px 0 0;font-size:13px;opacity:0.85;}\n" +
+               ".header h1{margin:0;font-size:26px;font-weight:800;letter-spacing:3px;text-transform:uppercase;}\n" +
+               ".header p{margin:0;font-size:12px;letter-spacing:0.5px;opacity:0.75;}\n" +
                ".content{padding:30px 28px;}\n" +
                ".card-title{font-size:18px;font-weight:600;margin-top:0;margin-bottom:16px;color:" + COLOR1 + ";border-bottom:2px solid #fee2e2;padding-bottom:8px;}\n" +
                ".alert{padding:16px;border-radius:12px;margin-bottom:20px;font-size:14px;line-height:1.6;}\n" +
@@ -60,7 +60,7 @@ public class PUsuarios {
                ".footer{background:#f8fafc;padding:20px;text-align:center;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0;}\n" +
                "</style>\n</head>\n<body>\n" +
                "<div class=\"container\">\n" +
-               "<div class=\"header\"><h1>RAO MOTOS &mdash; Usuarios</h1><p>Sistema de Ventas por Correo Electrónico</p></div>\n" +
+               "<div class=\"header\"><h1>RAO MOTOS</h1><div style=\"width:40px;height:2px;background:rgba(255,255,255,0.30);margin:10px auto 8px;border-radius:1px;\"></div><p>Gestión de Usuarios</p></div>\n" +
                "<div class=\"content\">" + contenido + "</div>\n" +
                "<div class=\"footer\"><strong>Grupo 02 &mdash; Tecnología Web (UAGRM)</strong><br>Correo automático &mdash; no responder directamente.</div>\n" +
                "</div>\n</body>\n</html>";
